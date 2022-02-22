@@ -36,26 +36,69 @@ def to_usd(my_price):
 
 #print(products)
 
-
-while true:
+selected_products=[]
+total_price=0
+while True:
 
     #ask for user input
     product_id=input("Please input a product identifier: ")
-    print(product_id) #>9
+    #print(product_id) #>9
+    #print(type(product_id))
     #type of input(product_id) 9 is a string 
     
-    if product_id=="done":
+    if product_id=="DONE":
         break
-    #look up corresponding product 
+    else:
+        selected_products.append(product_id)
+
+    #look up corresponding product, store the loop output
+    ###for i in products:
+    ###    if str(i["id"]) == str(product_id):
+    ###        selected_products.append(i["name"])
+    ###        selected_products.append(i["price"])
+
     
-    #print the product that has an id attribute to 9
-    
-    matching_products=[]
-    for x in products:
-        if x["id"] == str(product_id):
-            matching_products.append(x)
-    
-    print (matching_products)
-    
+#print the product that has an id attribute to 9
+    #matching_products=[]
+    ##for x in products:
+    ##    if str(x["id"]) == str(product_id):
+    ##        matching_products.append(x)   #X is a dict
+    #print(matching_products)
+    #print(type(matching_products)) #it is a list
+    #print(len(matching_products))
+    # print the name of the matching product
+    #Make matching_products from list to dict
+
+
+
+import os
+#from dotenv import load_dotenv
+#load_dotenv() 
+#TAX_RATE=os.getenv("TAX_RATE")
+TAX_RATE=0.0875
+
+
+
+print ("---------------------------------")
+print ("GREEN FOODS GROCERY")
+print ("WWW.GREEN-FOODS-GROCERY.COM")
+print ("---------------------------------")
+from datetime import datetime 
+print("CHECK OUT AT: ", datetime.now())
+print ("---------------------------------")
+print ("SELECTED PRODUCTS: ")
+
+matching_products=[]
+for product_id in selected_products:
+    matching_products = [x for x in products if str(x["id"]) == str(product_id)]
     matching_product = matching_products[0]
-    pring(matching_product["name"])
+    total_price=total_price+matching_product["price"]
+    print("... ", matching_product["name"], "(", to_usd(matching_product["price"]), ") ")
+print ("---------------------------------")
+
+print ("SUBTOTAL: ", to_usd(total_price))
+print ("TAX: ", to_usd(total_price*TAX_RATE))
+print ("TOTAL: ", to_usd(total_price*(1+TAX_RATE)))
+print ("---------------------------------")
+print ("THANKS, SEE YOU AGAIN SOON!")
+print ("---------------------------------")
